@@ -13,6 +13,7 @@
  */
 #include <sam3x8e.h>
 #include <pio.h>
+#include <time.h>
 
 
 // From module: Common SAM compiler driver
@@ -26,7 +27,7 @@
 //#include <board.h>
 
 // From module: IOPORT - General purpose I/O service
-//#include <ioport.h>
+#include <ioport.h>
 
 // From module: Interrupt management - SAM implementation
 //#include <interrupt.h>
@@ -51,7 +52,7 @@
 #include <sysclk.h>
 
 // From module: TC - Timer Counter
-//#include <tc.h>
+#include <tc.h>
 
 // From module: UART - Univ. Async Rec/Trans
 //#include <uart.h>

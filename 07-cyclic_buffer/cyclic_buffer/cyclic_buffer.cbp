@@ -36,6 +36,7 @@
 		<Unit filename="Makefile" />
 		<Unit filename="app/include/asf.h" />
 		<Unit filename="app/include/conf_clock.h" />
+		<Unit filename="app/include/fifo.h" />
 		<Unit filename="app/src/main.c">
 			<Option compilerVar="CC" />
 		</Unit>

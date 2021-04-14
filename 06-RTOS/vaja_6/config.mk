@@ -59,7 +59,7 @@ CSRCS = \
 	asf/sam/utils/cmsis/sam3x/source/templates/exceptions.c			\
 	asf/sam/utils/cmsis/sam3x/source/templates/gcc/startup_sam3x.c	\
 	asf/common/services/clock/sam3x/sysclk.c						\
-	asf/common/services/delay/sam/cycle_counter.h					\
+	asf/common/services/delay/sam/cycle_counter.c					\
 	asf/sam/utils/syscalls/gcc/syscalls.c                          	\
 	asf/sam/drivers/pmc/pmc.c										\
 	asf/sam/drivers/pio/pio.c										\
