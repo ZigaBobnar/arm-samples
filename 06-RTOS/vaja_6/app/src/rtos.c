@@ -1,4 +1,4 @@
-#include <rtos.h>
+#include "rtos.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -6,50 +6,64 @@ extern "C" {
 
 
 rtos_task_t* (*_tasklist_ptr) = NULL;
-uint32_t _tasks_count = 0;
-char/*uint32_t*/ _current_task_idx = 0;
+rtos_task_t** _current_task_ptr = NULL;
 
 
 uint32_t rtos_init(uint32_t slice_us)
 {
-    sysclk_set_source(SYSCLK_SRC_MAINCK_8M_RC);
-    SysTick->LOAD = sysclk_get_main_hz() / slice_us;
+    // Get correct number of "ticks" per slice:
+    uint32_t n_of_cycles_per_slice = sysclk_get_main_hz() / 1000 / 1000 * slice_us;
 
-    SysTick->CTRL  = SysTick_CTRL_CLKSOURCE_Msk |
-                   SysTick_CTRL_TICKINT_Msk   |
-                   SysTick_CTRL_ENABLE_Msk;
+    SysTick->LOAD = n_of_cycles_per_slice;
+
+
+    SysTick->CTRL = (SysTick_CTRL_CLKSOURCE_Msk |
+                   SysTick_CTRL_TICKINT_Msk) &
+                   ~SysTick_CTRL_ENABLE_Msk;
 
     NVIC_EnableIRQ(SysTick_IRQn);
 
-    NVIC_SetPriority(SysTick_IRQn, 1);
+    NVIC_SetPriority(SysTick_IRQn, 0);
 
     return 0;
 }
 
 void rtos_disable(void)
 {
-    // TODO
+    SysTick->CTRL &= ~SysTick_CTRL_ENABLE_Msk;
 }
 
 void rtos_enable(void)
 {
-    // TODO
+    SysTick->CTRL |= SysTick_CTRL_ENABLE_Msk;
 }
 
-void rtos_set_tasklist_ptr(rtos_task_t* (*tasklist_ptr), uint32_t tasks_count)
+void rtos_set_tasklist_ptr(rtos_task_t* (*tasklist_ptr))
 {
     _tasklist_ptr = tasklist_ptr;
-    _tasks_count = tasks_count;
+    _current_task_ptr = _tasklist_ptr;
 }
-
 
 void SysTick_Handler(void)
 {
-    if (++_current_task_idx > _tasks_count) {
-        _current_task_idx = 0;
+    // TODO
+    // System control block -> Interrupt Control and State Register -> Check if SysTick interrupt is pending
+    /*if (SCB->ICSR & SCB_ICSR_PENDSTSET_Msk) {
+    }*/
+
+    // The tasklist must be terminated with "null function" task.
+    if ((*_current_task_ptr)->function == NULL) {
+        _current_task_ptr = _tasklist_ptr;
     }
 
-    (*(_tasklist_ptr + _current_task_idx))->function();
+    // Increases for next task, ccurrent task will be actually run.
+    // This will prevent problems if increase happened after the task was run as it might actually not happen.
+    rtos_task_t* running_task = *_current_task_ptr;
+    ++_current_task_ptr;
+
+    running_task->function();
+
+    //running_task->last_tick++; // TODO
 }
 
 #ifdef __cplusplus

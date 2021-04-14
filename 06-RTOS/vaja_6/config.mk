@@ -59,9 +59,11 @@ CSRCS = \
 	asf/sam/utils/cmsis/sam3x/source/templates/exceptions.c			\
 	asf/sam/utils/cmsis/sam3x/source/templates/gcc/startup_sam3x.c	\
 	asf/common/services/clock/sam3x/sysclk.c						\
+	asf/common/services/delay/sam/cycle_counter.h					\
 	asf/sam/utils/syscalls/gcc/syscalls.c                          	\
 	asf/sam/drivers/pmc/pmc.c										\
 	asf/sam/drivers/pio/pio.c										\
+	asf/sam/drivers/tc/tc.c											\
 
 
 # List of assembler source files.
@@ -81,8 +83,11 @@ INC_PATH = \
 	asf/thirdparty/CMSIS/include				\
 	asf/common/services/gpio					\
 	asf/common/services/clock					\
+	asf/common/services/ioport					\
+	asf/common/services/delay					\
 	asf/sam/drivers/pmc							\
 	asf/sam/drivers/pio							\
+	asf/sam/drivers/tc							\
 
 
 
@@ -142,3 +147,5 @@ LDFLAGS = \
 # Pre- and post-build commands
 PREBUILD_CMD =
 POSTBUILD_CMD =
+
+MAKEFLAGS = -j12

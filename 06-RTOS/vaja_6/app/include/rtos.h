@@ -1,7 +1,7 @@
-#include <asf.h>
-
 #ifndef RTOS_H_
 #define RTOS_H_
+
+#include <asf.h>
 
 typedef void (*ptr_function)(void);
 
@@ -16,6 +16,6 @@ uint32_t rtos_init(uint32_t slice_us);
 void rtos_disable(void);
 void rtos_enable(void);
 
-void rtos_set_tasklist_ptr(rtos_task_t* (*tasklist_ptr), uint32_t tasks_count);
+void rtos_set_tasklist_ptr(rtos_task_t* (*tasklist_ptr));
 
 #endif  // RTOS_H_
