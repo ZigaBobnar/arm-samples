@@ -14,6 +14,7 @@
 #include <sam3x8e.h>
 #include <pio.h>
 #include <time.h>
+#include <delay.h>
 
 
 // From module: Common SAM compiler driver
