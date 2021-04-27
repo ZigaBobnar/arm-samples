@@ -6,3 +6,5 @@
 *.lss
 *.sym
 *.map
+*.layout
+*.depend
