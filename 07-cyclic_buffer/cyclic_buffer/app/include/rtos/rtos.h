@@ -21,6 +21,8 @@ struct _task {
 
     /** Last function execution tick */
     uint32_t last_tick;
+
+    const char* task_name;
 };
 /** RTOS task instance */
 typedef struct _task rtos_task_t;

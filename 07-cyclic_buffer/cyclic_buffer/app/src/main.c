@@ -20,7 +20,7 @@ int main (void)
     /********************* HW init     ***************************/
     rtos_tasks_init();
 
-    rtos_init(25500);
+    rtos_init(500);
     rtos_set_tasklist_ptr(rtos_tasklist);
     rtos_enable();
 
@@ -34,6 +34,10 @@ int main (void)
     while(1) {}
 }
 
+// Set breakpoint to debug hardfaults
+void HardFault_Handler(void) {
+    rtos_disable();
+}
 
 #ifdef __cplusplus
 }
