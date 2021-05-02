@@ -17,6 +17,7 @@ void rtos_tasks_init(void);
 
 extern rtos_task_t buttons_task;
 extern rtos_task_t led_driver_task;
+extern rtos_task_t prepare_lcd_text_task;
 extern rtos_task_t lcd_driver_task;
 
 #define KEYS_FIFO_SIZE 10 // Size for fifo keys (9 in this case)

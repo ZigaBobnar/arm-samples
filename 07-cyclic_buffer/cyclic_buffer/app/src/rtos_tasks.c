@@ -59,6 +59,7 @@ void rtos_tasks_init(void) {
 
 void buttons_task_runtime(void);
 void led_driver_task_runtime(void);
+void prepare_lcd_text_task_runtime(void);
 void lcd_driver_task_runtime(void);
 
 uint8_t keys_buff[KEYS_FIFO_SIZE];
@@ -74,6 +75,11 @@ rtos_task_t led_driver_task = {
     .task_name = "LED_Driver",
 };
 
+rtos_task_t prepare_lcd_text_task = {
+    .function = prepare_lcd_text_task_runtime,
+    .task_name = "Prepare_LCD_Text",
+};
+
 rtos_task_t lcd_driver_task = {
     .function = lcd_driver_task_runtime,
     .task_name = "LCD_Driver",
@@ -87,6 +93,7 @@ rtos_task_t null_task = {
 rtos_task_t* rtos_tasklist[] = {
     &buttons_task,
     &led_driver_task,
+    &prepare_lcd_text_task,
     &lcd_driver_task,
     &null_task,
 };
@@ -167,22 +174,26 @@ void led_driver_task_runtime(void) {
     }
 }
 
+void prepare_lcd_text_task_runtime(void) {
+    char queue[10] = "         ";
+
+    uint8_t pending_buttons[KEYS_FIFO_SIZE];
+    uint8_t actual_pending = 0;
+
+    actual_pending = fifo_peek(&button_presses_fifo, pending_buttons, KEYS_FIFO_SIZE - 1);
+
+    for (int i = 0; i < 10; ++i) {
+        queue[i] = (i < actual_pending) ? pending_buttons[i] : ' ';
+    }
+
+    sprintf(lcd._lcd_string, queue);
+}
+
 void lcd_driver_task_runtime(void) {
     static uint32_t last_display_update_timer_value = 0;
 
+    // Update LCD with interval of 100 ms (10 Hz)
     if (tc_read_cv(TC0, 1) - last_display_update_timer_value >= 100 * (CLOCKS_PER_SEC * 32)) {
-        char queue[10] = "         ";
-
-        uint8_t pending_buttons[KEYS_FIFO_SIZE];
-        uint8_t actual_pending = 0;
-
-        actual_pending = fifo_peek(&button_presses_fifo, pending_buttons, KEYS_FIFO_SIZE - 1);
-
-        for (int i = 0; i < 10; ++i) {
-            queue[i] = (i < actual_pending) ? pending_buttons[i] : ' ';
-        }
-
-        sprintf(lcd._lcd_string, queue);
         lcd_write_lcd_string(&lcd);
 
         last_display_update_timer_value = tc_read_cv(TC0, 1);
