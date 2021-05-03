@@ -14,6 +14,7 @@
 #include <sam3x8e.h>
 #include <pio.h>
 
+#include <dacc.h>
 
 // From module: Common SAM compiler driver
 #include <compiler.h>

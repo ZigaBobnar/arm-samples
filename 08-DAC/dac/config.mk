@@ -62,6 +62,7 @@ CSRCS = \
 	asf/sam/utils/syscalls/gcc/syscalls.c                          	\
 	asf/sam/drivers/pmc/pmc.c										\
 	asf/sam/drivers/pio/pio.c										\
+	asf/sam/drivers/dacc/dacc.c										\
 
 
 # List of assembler source files.
@@ -83,6 +84,7 @@ INC_PATH = \
 	asf/common/services/clock					\
 	asf/sam/drivers/pmc							\
 	asf/sam/drivers/pio							\
+	asf/sam/drivers/dacc						\
 
 
 
