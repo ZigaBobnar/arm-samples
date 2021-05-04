@@ -52,7 +52,7 @@
 #include <sysclk.h>
 
 // From module: TC - Timer Counter
-//#include <tc.h>
+#include <tc.h>
 
 // From module: UART - Univ. Async Rec/Trans
 //#include <uart.h>

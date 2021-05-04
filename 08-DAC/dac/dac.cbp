@@ -67,6 +67,10 @@
 		<Unit filename="asf/sam/boards/arduino_due_x/init.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="asf/sam/drivers/dacc/dacc.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="asf/sam/drivers/dacc/dacc.h" />
 		<Unit filename="asf/sam/drivers/pio/pio.c">
 			<Option compilerVar="CC" />
 		</Unit>
