@@ -16,6 +16,7 @@
 
 #include <dacc.h>
 #include <adc.h>
+#include <delay.h>
 
 // From module: Common SAM compiler driver
 #include <compiler.h>
