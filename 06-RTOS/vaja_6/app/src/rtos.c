@@ -46,11 +46,6 @@ void rtos_set_tasklist_ptr(rtos_task_t* (*tasklist_ptr))
 
 void SysTick_Handler(void)
 {
-    // TODO
-    // System control block -> Interrupt Control and State Register -> Check if SysTick interrupt is pending
-    /*if (SCB->ICSR & SCB_ICSR_PENDSTSET_Msk) {
-    }*/
-
     // The tasklist must be terminated with "null function" task.
     if ((*_current_task_ptr)->function == NULL) {
         _current_task_ptr = _tasklist_ptr;
@@ -64,6 +59,15 @@ void SysTick_Handler(void)
     running_task->function();
 
     //running_task->last_tick++; // TODO
+    
+    // System control block -> Interrupt Control and State Register -> Check if SysTick interrupt is pending
+    // Check if another interrupt for SysTick was triggered
+    // If it was the current task ran for too long
+    if (SCB->ISCR & SCB_ICSR_PENDSTSET_Msk) {
+        uint32_t reg_value = SCB->ISCR;
+        
+        rtos_disable();
+    }
 }
 
 #ifdef __cplusplus
