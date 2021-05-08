@@ -7,6 +7,7 @@ extern "C" {
 
 rtos_task_t* (*_tasklist_ptr) = NULL;
 rtos_task_t** _current_task_ptr = NULL;
+uint32_t total_ticks_run = 0;
 
 
 uint32_t rtos_init(uint32_t slice_us)
@@ -58,7 +59,8 @@ void SysTick_Handler(void)
 
     running_task->function();
 
-    //running_task->last_tick++; // TODO
+    running_task->last_tick = total_ticks_run;
+    total_ticks_run++;
     
     // System control block -> Interrupt Control and State Register -> Check if SysTick interrupt is pending
     // Check if another interrupt for SysTick was triggered
