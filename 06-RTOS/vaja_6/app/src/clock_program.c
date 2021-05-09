@@ -6,9 +6,10 @@
 extern "C" {
 #endif
 
-int hours = 0;
-int minutes = 0;
-int seconds = 0;
+// int hours = 0;
+// int minutes = 0;
+// int seconds = 0;
+uint32_t current_time = 0;
 bool clock_paused = false;
 uint32_t last_time_val = 0;
 
@@ -80,13 +81,14 @@ void clock_task_runtime(void) {
         uint32_t new_time_val = tc_read_cv(TC0, 1);
         while (new_time_val - last_time_val >= time_unit) {
             last_time_val += time_unit;
-            seconds++;
+
+            current_time++;
         }
     } else {
         last_time_val = tc_read_cv(TC0, 1);
     }
 
-    while (seconds >= 60) {
+    /*while (seconds >= 60) {
         minutes++;
         seconds -= 60;
     }
@@ -98,10 +100,21 @@ void clock_task_runtime(void) {
 
     if (hours >= 24) {
         hours = 0;
-    }
+    }*/
 }
 
 void prepare_display_text_task_runtime(void) {
+    static const uint32_t day_seconds = 24 * 60 * 60;
+    int hours, minutes, seconds;
+
+    if (current_time >= day_seconds) {
+        current_time = 0;
+    }
+
+    hours = current_time % (3600);
+    minutes = (current_time - (hours * 3600)) % 60;
+    seconds = (current_time - (hours * 3600) - (seconds * 60));
+
     sprintf(lcd_string, "Ura: %02i:%02i:%02i                   ", hours, minutes, seconds);
 }
 
@@ -109,9 +122,9 @@ void display_task_runtime(void) {
     lcd_driver();
 }
 
-uint32_t old_buttons_state = 0;
-
 void buttons_task_runtime(void) {
+    static uint32_t old_buttons_state = 0;
+
     uint32_t buttons_state =
         (!ioport_get_pin_level(PIO_PC26_IDX) << 3) |
         (!ioport_get_pin_level(PIO_PC25_IDX) << 2) |
@@ -122,11 +135,13 @@ void buttons_task_runtime(void) {
     uint32_t falling_edge = old_buttons_state & ~buttons_state;
 
     if ((falling_edge >> 3) & 1) {
-        hours++;
+        current_time += 3600;
+        // hours++;
     }
 
     if ((falling_edge >> 2) & 1) {
-        minutes++;
+        current_time += 60;
+        // minutes++;
     }
 
     if ((rising_edge >> 1) & 1) {
@@ -138,9 +153,10 @@ void buttons_task_runtime(void) {
     }
 
     if ((falling_edge >> 0) & 1) {
-        hours = 0;
-        minutes = 0;
-        seconds = 0;
+        current_time = 0;
+        // hours = 0;
+        // minutes = 0;
+        // seconds = 0;
     }
 
     old_buttons_state = buttons_state;
