@@ -39,6 +39,7 @@
 		<Unit filename="app/src/main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="app/src/main.d" />
 		<Unit filename="archive.sh" />
 		<Unit filename="asf/common/boards/board.h" />
 		<Unit filename="asf/common/services/clock/dfll.h" />
@@ -51,6 +52,7 @@
 		<Unit filename="asf/common/services/clock/sam3x/sysclk.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="asf/common/services/clock/sam3x/sysclk.d" />
 		<Unit filename="asf/common/services/clock/sam3x/sysclk.h" />
 		<Unit filename="asf/common/services/clock/sysclk.h" />
 		<Unit filename="asf/common/services/gpio/gpio.h" />
@@ -70,6 +72,7 @@
 		<Unit filename="asf/sam/drivers/pio/pio.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="asf/sam/drivers/pio/pio.d" />
 		<Unit filename="asf/sam/drivers/pio/pio.h" />
 		<Unit filename="asf/sam/drivers/pio/pio_handler.c">
 			<Option compilerVar="CC" />
@@ -78,11 +81,17 @@
 		<Unit filename="asf/sam/drivers/pmc/pmc.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="asf/sam/drivers/pmc/pmc.d" />
 		<Unit filename="asf/sam/drivers/pmc/pmc.h" />
 		<Unit filename="asf/sam/drivers/pmc/sleep.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="asf/sam/drivers/pmc/sleep.h" />
+		<Unit filename="asf/sam/drivers/uart/uart.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="asf/sam/drivers/uart/uart.d" />
+		<Unit filename="asf/sam/drivers/uart/uart.h" />
 		<Unit filename="asf/sam/utils/cmsis/sam3x/include/component/component_adc.h" />
 		<Unit filename="asf/sam/utils/cmsis/sam3x/include/component/component_can.h" />
 		<Unit filename="asf/sam/utils/cmsis/sam3x/include/component/component_chipid.h" />
@@ -160,13 +169,16 @@
 		<Unit filename="asf/sam/utils/cmsis/sam3x/source/templates/exceptions.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="asf/sam/utils/cmsis/sam3x/source/templates/exceptions.d" />
 		<Unit filename="asf/sam/utils/cmsis/sam3x/source/templates/exceptions.h" />
 		<Unit filename="asf/sam/utils/cmsis/sam3x/source/templates/gcc/startup_sam3x.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="asf/sam/utils/cmsis/sam3x/source/templates/gcc/startup_sam3x.d" />
 		<Unit filename="asf/sam/utils/cmsis/sam3x/source/templates/system_sam3x.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="asf/sam/utils/cmsis/sam3x/source/templates/system_sam3x.d" />
 		<Unit filename="asf/sam/utils/cmsis/sam3x/source/templates/system_sam3x.h" />
 		<Unit filename="asf/sam/utils/compiler.h" />
 		<Unit filename="asf/sam/utils/header_files/io.h" />
@@ -181,6 +193,7 @@
 		<Unit filename="asf/sam/utils/syscalls/gcc/syscalls.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="asf/sam/utils/syscalls/gcc/syscalls.d" />
 		<Unit filename="asf/thirdparty/CMSIS/include/core_cm3.h" />
 		<Unit filename="asf/thirdparty/CMSIS/include/core_cmFunc.h" />
 		<Unit filename="asf/thirdparty/CMSIS/include/core_cmInstr.h" />

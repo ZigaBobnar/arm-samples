@@ -54,7 +54,7 @@
 //#include <tc.h>
 
 // From module: UART - Univ. Async Rec/Trans
-//#include <uart.h>
+#include <uart.h>
 
 // From module: USART - Serial interface - SAM implementation for devices with both UART and USART
 //#include <serial.h>
